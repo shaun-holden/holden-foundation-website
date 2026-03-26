@@ -9,7 +9,6 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-```
 :root {
   --navy:   #0a0e2a;
   --deep:   #060918;
@@ -431,8 +430,6 @@ footer p { color: var(--muted); font-size: .85rem; }
   .impact-big { flex-direction: column; gap: 1.5rem; }
   .hero-stats { gap: 1.5rem; }
 }
-```
-
   </style>
 </head>
 <body>
@@ -670,24 +667,25 @@ footer p { color: var(--muted); font-size: .85rem; }
         <span>(470) 000-0000</span>
       </div>
     </div>
-    <div class="contact-form">
+    <form class="contact-form" id="contactForm">
       <div class="form-row">
         <div class="form-group">
           <label>First Name</label>
-          <input type="text" placeholder="First"/>
+          <input type="text" name="firstName" placeholder="First" required/>
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" placeholder="Last"/>
+          <input type="text" name="lastName" placeholder="Last" required/>
         </div>
       </div>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" placeholder="you@email.com"/>
+        <input type="email" name="email" placeholder="you@email.com" required/>
       </div>
       <div class="form-group">
         <label>I want to...</label>
-        <select>
+        <select name="inquiryType" required>
+          <option value="">Select an option</option>
           <option>Donate</option>
           <option>Volunteer</option>
           <option>Partner / Sponsor</option>
@@ -697,10 +695,11 @@ footer p { color: var(--muted); font-size: .85rem; }
       </div>
       <div class="form-group">
         <label>Message</label>
-        <textarea placeholder="Tell us how you'd like to get involved..."></textarea>
+        <textarea name="message" placeholder="Tell us how you'd like to get involved..." required></textarea>
       </div>
-      <button class="btn-submit">Send Message</button>
-    </div>
+      <button type="submit" class="btn-submit" id="submitBtn">Send Message</button>
+      <p id="formStatus" style="color: var(--gold); margin-top: .5rem; display: none;"></p>
+    </form>
   </div>
 </section>
 
@@ -719,5 +718,47 @@ footer p { color: var(--muted); font-size: .85rem; }
   <p>© 2026 Holden Foundation for Kids Sports. All rights reserved. | 501(c)(3) Nonprofit</p>
 </footer>
 
+<script>
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const status = document.getElementById('formStatus');
+  const form = e.target;
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  status.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: form.firstName.value.trim(),
+        lastName: form.lastName.value.trim(),
+        email: form.email.value.trim(),
+        inquiryType: form.inquiryType.value,
+        message: form.message.value.trim()
+      })
+    });
+
+    if (res.ok) {
+      status.textContent = 'Message sent! We\'ll be in touch soon.';
+      status.style.color = 'var(--gold)';
+      status.style.display = 'block';
+      form.reset();
+    } else {
+      throw new Error('Send failed');
+    }
+  } catch (err) {
+    status.textContent = 'Something went wrong. Please try again or email us directly.';
+    status.style.color = '#e74c3c';
+    status.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
+  }
+});
+</script>
 </body>
 </html>
