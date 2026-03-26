@@ -316,19 +316,37 @@ h2 em { color: var(--gold); font-style: normal; }
 }
 .donate-banner p {
   color: rgba(10,14,42,.7); font-size: 1.1rem;
-  max-width: 500px; margin: .8rem auto 2rem;
+  max-width: 500px; margin: .8rem auto 0;
+  position: relative; z-index: 1;
+}
+.donate-buttons {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  justify-content: center; margin-top: 2rem;
   position: relative; z-index: 1;
 }
 .btn-dark {
   background: var(--navy); color: var(--gold);
-  padding: 1rem 2.5rem; border-radius: 6px;
+  padding: 1rem 2rem; border-radius: 6px;
   font-weight: 700; font-size: 1rem; letter-spacing: 1px;
   text-decoration: none; text-transform: uppercase;
-  position: relative; z-index: 1;
-  display: inline-block;
+  display: inline-block; min-width: 130px; text-align: center;
   transition: transform .2s, background .2s;
 }
 .btn-dark:hover { background: var(--deep); transform: translateY(-3px); }
+.btn-dark-white {
+  background: #ffffff; color: var(--navy);
+  padding: 1rem 2rem; border-radius: 6px;
+  font-weight: 700; font-size: 1rem; letter-spacing: 1px;
+  text-decoration: none; text-transform: uppercase;
+  display: inline-block; min-width: 150px; text-align: center;
+  transition: transform .2s;
+}
+.btn-dark-white:hover { transform: translateY(-3px); }
+.donate-secure {
+  margin-top: 1rem; font-size: .8rem;
+  color: rgba(10,14,42,.55);
+  position: relative; z-index: 1;
+}
 
 /* ── CONTACT ── */
 .contact { background: var(--navy); }
@@ -622,24 +640,13 @@ footer p { color: var(--muted); font-size: .85rem; }
 <div class="donate-banner" id="donate">
   <h2>Change a Child's Life Today</h2>
   <p>Every dollar goes directly toward giving kids access to the sports and mentorship they deserve.</p>
-
-  <div style="display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; margin-top:2rem; position:relative; z-index:1;">
-    <a href="https://buy.stripe.com/14A4gybeB4dG66VdsB9AA02" target="_blank" class="btn-dark" style="min-width:130px; text-align:center;">
-      💛 Give $25
-    </a>
-    <a href="https://buy.stripe.com/dRm8wO1E1aC48f32NX9AA03" target="_blank" class="btn-dark" style="min-width:130px; text-align:center;">
-      🌟 Give $50
-    </a>
-    <a href="https://buy.stripe.com/fZu8wO2I58tW66V2NX9AA01" target="_blank" class="btn-dark" style="min-width:130px; text-align:center;">
-      🏅 Give $100
-    </a>
-    <a href="https://buy.stripe.com/7sY6oGdmJdOg3YNfAJ9AA04" target="_blank" class="btn-dark" style="min-width:160px; text-align:center; background:#fff; color:#0a0e2a;">
-      ✏️ Custom Amount
-    </a>
+  <div class="donate-buttons">
+    <a href="https://buy.stripe.com/14A4gybeB4dG66VdsB9AA02" target="_blank" class="btn-dark">💛 Give $25</a>
+    <a href="https://buy.stripe.com/dRm8wO1E1aC48f32NX9AA03" target="_blank" class="btn-dark">🌟 Give $50</a>
+    <a href="https://buy.stripe.com/fZu8wO2I58tW66V2NX9AA01" target="_blank" class="btn-dark">🏅 Give $100</a>
+    <a href="https://buy.stripe.com/7sY6oGdmJdOg3YNfAJ9AA04" target="_blank" class="btn-dark-white">✏️ Custom Amount</a>
   </div>
-  <p style="margin-top:1.2rem; font-size:.8rem; color:rgba(10,14,42,.6); position:relative; z-index:1;">
-    🔒 Secure payments powered by Stripe
-  </p>
+  <p class="donate-secure">🔒 Secure payments powered by Stripe</p>
 </div>
 
 <!-- CONTACT -->
@@ -656,7 +663,7 @@ footer p { color: var(--muted); font-size: .85rem; }
       </div>
       <div class="contact-detail">
         <div class="contact-detail-icon">✉️</div>
-        <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c15121a133c1413101819121a130912181d0815131252130e1b">[email&#160;protected]</a></span>
+        <span>info@holdenfoundation.org</span>
       </div>
       <div class="contact-detail">
         <div class="contact-detail-icon">📞</div>
@@ -667,11 +674,11 @@ footer p { color: var(--muted); font-size: .85rem; }
       <div class="form-row">
         <div class="form-group">
           <label>First Name</label>
-          <input type="text" placeholder="DeShaun"/>
+          <input type="text" placeholder="First"/>
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" placeholder="Holden"/>
+          <input type="text" placeholder="Last"/>
         </div>
       </div>
       <div class="form-group">
@@ -708,4 +715,9 @@ footer p { color: var(--muted); font-size: .85rem; }
     <a href="#involved">Get Involved</a>
     <a href="#donate">Donate</a>
     <a href="#contact">Contact</a>
-  <
+  </div>
+  <p>© 2026 Holden Foundation for Kids Sports. All rights reserved. | 501(c)(3) Nonprofit</p>
+</footer>
+
+</body>
+</html>
