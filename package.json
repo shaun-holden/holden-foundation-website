@@ -1,0 +1,7 @@
+{
+  "name": "holden-foundation",
+  "private": true,
+  "dependencies": {
+    "resend": "^4.1.0"
+  }
+}
