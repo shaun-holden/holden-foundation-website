@@ -299,6 +299,34 @@ h2 em { color: var(--gold); font-style: normal; }
 }
 .involved-link:hover { color: var(--orange); }
 
+/* ── FUNDRAISER ── */
+.fundraiser { background: var(--navy); text-align: center; }
+.fundraiser-card {
+  max-width: 600px; margin: 2.5rem auto 0;
+  background: var(--card);
+  border: 1px solid rgba(245,200,66,.2);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.fundraiser-img {
+  width: 100%; display: block;
+  object-fit: cover; max-height: 400px;
+}
+.fundraiser-body { padding: 2rem; }
+.fundraiser-body h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem; letter-spacing: 1px; margin-bottom: .5rem;
+}
+.fundraiser-date {
+  display: inline-block;
+  background: rgba(245,200,66,.15); color: var(--gold);
+  padding: .4rem 1.2rem; border-radius: 20px;
+  font-weight: 700; font-size: .85rem;
+  letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: .8rem;
+}
+.fundraiser-body p { color: var(--muted); font-size: .95rem; line-height: 1.7; }
+
 /* ── DONATE BANNER ── */
 .donate-banner {
   background: linear-gradient(135deg, #f5c842 0%, #f97316 100%);
@@ -421,14 +449,62 @@ footer p { color: var(--muted); font-size: .85rem; }
   to   { transform: translateX(-50%); }
 }
 
+/* ── HAMBURGER ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 200;
+}
+.hamburger span {
+  display: block;
+  width: 26px;
+  height: 2.5px;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 700px) {
-  nav ul { display: none; }
+  .hamburger { display: flex; }
+  nav ul {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(6,9,24,0.97);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.2rem;
+    display: none;
+    z-index: 150;
+  }
+  nav ul.open { display: flex; }
+  nav ul a { font-size: 1.2rem; color: var(--white); }
+  nav ul a:hover { color: var(--gold); }
+  .nav-cta { padding: .6rem 1.6rem !important; font-size: 1rem !important; }
   .contact-inner { grid-template-columns: 1fr; }
   .impact-inner { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .impact-big { flex-direction: column; gap: 1.5rem; }
   .hero-stats { gap: 1.5rem; }
+  h1 { font-size: clamp(2.8rem, 10vw, 7rem); }
+  .hero { padding: 6rem 1.2rem 3rem; }
+  .hero-sub { font-size: .95rem; }
+  .donate-buttons { flex-direction: column; align-items: center; }
+  .btn-dark, .btn-dark-white { width: 100%; max-width: 260px; }
+  section { padding: 3.5rem 1.2rem; }
+  .missions-grid { grid-template-columns: 1fr; }
+  .involved-grid { grid-template-columns: 1fr; }
+  .program-row { flex-wrap: wrap; padding: 1.2rem 1rem; }
+  .program-tag { margin-left: 0; margin-top: .4rem; }
 }
 
   </style>
@@ -439,13 +515,16 @@ footer p { color: var(--muted); font-size: .85rem; }
 
 <nav>
   <div class="nav-logo">HFKS <span>Foundation</span></div>
-  <ul>
+  <ul id="nav-menu">
     <li><a href="#missions">Mission</a></li>
     <li><a href="#programs">Programs</a></li>
     <li><a href="#impact">Impact</a></li>
     <li><a href="#involved">Get Involved</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
+  <button type="button" class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -633,6 +712,21 @@ footer p { color: var(--muted); font-size: .85rem; }
   </div>
 </section>
 
+<!-- FUNDRAISER -->
+
+<section class="fundraiser" id="fundraiser">
+  <div class="section-label" style="justify-content:center;">Upcoming Event</div>
+  <h2>TNT Family <em>Fundraiser</em></h2>
+  <div class="fundraiser-card">
+    <img src="Popcorn.jpg" alt="Popcorn Fundraiser" class="fundraiser-img"/>
+    <div class="fundraiser-body">
+      <span class="fundraiser-date">April 6 – 20, 2026</span>
+      <h3>Popcorn Fundraiser</h3>
+      <p>Support the Holden Foundation by grabbing some delicious popcorn! All proceeds go directly toward youth sports programs and scholarships for kids in our community.</p>
+    </div>
+  </div>
+</section>
+
 <!-- DONATE SECTION -->
 
 <div class="donate-banner" id="donate">
@@ -717,5 +811,19 @@ footer p { color: var(--muted); font-size: .85rem; }
   <p>© 2026 Holden Foundation for Kids Sports. All rights reserved. | 501(c)(3) Nonprofit</p>
 </footer>
 
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('open');
+  });
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('open');
+    });
+  });
+</script>
 </body>
 </html>
