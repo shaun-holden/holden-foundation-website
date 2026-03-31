@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TNT Families — Holden Foundation for Kids Sports</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:   #0a0e2a;
+  --deep:   #060918;
+  --gold:   #f5c842;
+  --orange: #f97316;
+  --sky:    #38bdf8;
+  --white:  #f8fafc;
+  --muted:  #94a3b8;
+  --card:   #111630;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--deep);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 2rem;
+  background: rgba(6,9,24,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(245,200,66,0.15);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem; letter-spacing: 2px; color: var(--gold);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--sky); }
+nav ul { list-style: none; display: flex; gap: 1.8rem; }
+nav ul a {
+  text-decoration: none; color: var(--muted);
+  font-weight: 600; font-size: .85rem; letter-spacing: 1px;
+  text-transform: uppercase; transition: color .2s;
+}
+nav ul a:hover { color: var(--gold); }
+.nav-cta {
+  background: var(--gold); color: var(--navy) !important;
+  padding: .4rem 1.1rem; border-radius: 4px;
+}
+.nav-cta:hover { background: var(--orange); color: var(--white) !important; }
+
+/* ── HAMBURGER ── */
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px; z-index: 200;
+}
+.hamburger span {
+  display: block; width: 26px; height: 2.5px;
+  background: var(--gold); border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+/* ── PASSWORD GATE ── */
+.password-gate {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem; text-align: center;
+}
+.password-gate h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  letter-spacing: 2px; margin-bottom: .5rem;
+}
+.password-gate h1 em { color: var(--gold); font-style: normal; }
+.password-gate p {
+  color: var(--muted); font-size: 1rem; margin-bottom: 2rem;
+}
+.password-form {
+  display: flex; gap: .8rem; flex-wrap: wrap; justify-content: center;
+}
+.password-form input {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 6px; padding: .75rem 1.2rem;
+  color: var(--white); font-family: 'Barlow', sans-serif;
+  font-size: 1rem; outline: none; min-width: 240px;
+  transition: border-color .2s;
+}
+.password-form input:focus { border-color: var(--gold); }
+.password-form button {
+  background: var(--gold); color: var(--navy);
+  padding: .75rem 2rem; border-radius: 6px;
+  font-weight: 700; font-size: .95rem; letter-spacing: .5px;
+  text-transform: uppercase; border: none; cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.password-form button:hover { background: var(--orange); color: var(--white); transform: translateY(-2px); }
+.password-error {
+  color: var(--orange); margin-top: 1rem;
+  font-size: .9rem; display: none;
+}
+
+/* ── CONTENT (hidden until password) ── */
+.tnt-content { display: none; padding-top: 5rem; }
+
+/* ── SECTION BASE ── */
+section { padding: 5rem 2rem; }
+.section-label {
+  font-size: .75rem; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--sky); font-weight: 700;
+  display: flex; align-items: center; gap: .6rem; margin-bottom: .8rem;
+}
+.section-label::before { content: ''; width: 28px; height: 2px; background: var(--sky); }
+h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  letter-spacing: 2px; line-height: 1; margin-bottom: 1rem;
+}
+h2 em { color: var(--gold); font-style: normal; }
+
+/* ── FUNDRAISER ── */
+.fundraiser { background: var(--navy); text-align: center; }
+.fundraiser-card {
+  max-width: 600px; margin: 2.5rem auto 0;
+  background: var(--card);
+  border: 1px solid rgba(245,200,66,.2);
+  border-radius: 16px; overflow: hidden;
+}
+.fundraiser-img {
+  width: 100%; display: block;
+  object-fit: cover; max-height: 400px;
+}
+.fundraiser-body { padding: 2rem; }
+.fundraiser-body h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem; letter-spacing: 1px; margin-bottom: .5rem;
+}
+.fundraiser-date {
+  display: inline-block;
+  background: rgba(245,200,66,.15); color: var(--gold);
+  padding: .4rem 1.2rem; border-radius: 20px;
+  font-weight: 700; font-size: .85rem;
+  letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: .8rem;
+}
+.fundraiser-body p { color: var(--muted); font-size: .95rem; line-height: 1.7; }
+
+/* ── WELCOME ── */
+.welcome { background: var(--deep); }
+.welcome-inner { max-width: 700px; }
+.welcome-inner p { color: var(--muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--deep);
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 3rem 2rem;
+  display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem; letter-spacing: 3px; color: var(--gold);
+}
+.footer-logo span { color: var(--sky); }
+footer p { color: var(--muted); font-size: .85rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .hamburger { display: flex; }
+  nav ul {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(6,9,24,0.97);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.2rem; display: none; z-index: 150;
+  }
+  nav ul.open { display: flex; }
+  nav ul a { font-size: 1.2rem; color: var(--white); }
+  nav ul a:hover { color: var(--gold); }
+  section { padding: 3.5rem 1.2rem; }
+}
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">HFKS <span>Foundation</span></a>
+  <ul id="nav-menu">
+    <li><a href="index.html#missions">Mission</a></li>
+    <li><a href="index.html#programs">Programs</a></li>
+    <li><a href="index.html#impact">Impact</a></li>
+    <li><a href="index.html#involved">Get Involved</a></li>
+    <li><a href="tnt-families.html">TNT Families</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button type="button" class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PASSWORD GATE -->
+<div class="password-gate" id="password-gate">
+  <h1>TNT <em>Families</em></h1>
+  <p>This page is for TNT families only. Please enter the password to continue.</p>
+  <div class="password-form">
+    <input type="password" id="password-input" placeholder="Enter password" />
+    <button id="password-btn">Enter</button>
+  </div>
+  <p class="password-error" id="password-error">Incorrect password. Please try again.</p>
+</div>
+
+<!-- PROTECTED CONTENT -->
+<div class="tnt-content" id="tnt-content">
+
+  <!-- WELCOME -->
+  <section class="welcome">
+    <div class="section-label">Welcome</div>
+    <h2>TNT <em>Families</em></h2>
+    <div class="welcome-inner">
+      <p>Welcome to the TNT Families portal! Here you'll find information about upcoming events, fundraisers, and important updates for our families.</p>
+    </div>
+  </section>
+
+  <!-- FUNDRAISER -->
+  <section class="fundraiser">
+    <div class="section-label" style="justify-content:center;">Upcoming Event</div>
+    <h2>Popcorn <em>Fundraiser</em></h2>
+    <div class="fundraiser-card">
+      <img src="Popcorn.jpg" alt="Popcorn Fundraiser" class="fundraiser-img"/>
+      <div class="fundraiser-body">
+        <span class="fundraiser-date">April 6 – 20, 2026</span>
+        <h3>Support Our Athletes!</h3>
+        <p>Support the Holden Foundation by grabbing some delicious popcorn! All proceeds go directly toward youth sports programs and scholarships for kids in our community.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Holden Foundation <span>for Kids Sports</span></div>
+    <p>&copy; 2026 Holden Foundation for Kids Sports. All rights reserved. | 501(c)(3) Nonprofit</p>
+  </footer>
+
+</div>
+
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('open');
+  });
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('open');
+    });
+  });
+
+  // Password protection
+  const gate = document.getElementById('password-gate');
+  const content = document.getElementById('tnt-content');
+  const input = document.getElementById('password-input');
+  const btn = document.getElementById('password-btn');
+  const error = document.getElementById('password-error');
+
+  function checkPassword() {
+    if (input.value === 'topnotch1313') {
+      gate.style.display = 'none';
+      content.style.display = 'block';
+      sessionStorage.setItem('tnt-auth', 'true');
+    } else {
+      error.style.display = 'block';
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  btn.addEventListener('click', checkPassword);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  // Remember login for the session
+  if (sessionStorage.getItem('tnt-auth') === 'true') {
+    gate.style.display = 'none';
+    content.style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
