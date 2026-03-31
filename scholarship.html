@@ -234,7 +234,8 @@ footer a { color: var(--sky); text-decoration: none; }
 </div>
 
 <!-- APPLICATION FORM -->
-<form id="scholarship-form">
+<form id="scholarship-form" action="https://formspree.io/f/xpqorzdv" method="POST">
+  <input type="hidden" name="_subject" value="New Scholarship Application — Holden Foundation" />
 
   <!-- PARENT / GUARDIAN INFO -->
   <div class="app-section">
@@ -470,25 +471,30 @@ footer a { color: var(--sky); text-decoration: none; }
     });
   });
 
-  // Form submission
+  // Form submission via Formspree with success message
   const form = document.getElementById('scholarship-form');
   const successMsg = document.getElementById('success-message');
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-
     const data = new FormData(form);
-    const body = {};
-    data.forEach((val, key) => { body[key] = val; });
 
-    // Send via EmailJS, Formspree, or similar service
-    // For now, show success and log data
-    console.log('Scholarship Application:', body);
-
-    form.style.display = 'none';
-    document.querySelector('.page-header').style.display = 'none';
-    successMsg.style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(res => {
+      if (res.ok) {
+        form.style.display = 'none';
+        document.querySelector('.page-header').style.display = 'none';
+        successMsg.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    }).catch(() => {
+      alert('Something went wrong. Please try again.');
+    });
   });
 </script>
 </body>
