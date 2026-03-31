@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scholarship Application — Holden Foundation for Kids Sports</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:   #0a0e2a;
+  --deep:   #060918;
+  --gold:   #f5c842;
+  --orange: #f97316;
+  --sky:    #38bdf8;
+  --white:  #f8fafc;
+  --muted:  #94a3b8;
+  --card:   #111630;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--deep);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 2rem;
+  background: rgba(6,9,24,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(245,200,66,0.15);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem; letter-spacing: 2px; color: var(--gold);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--sky); }
+nav ul { list-style: none; display: flex; gap: 1.8rem; }
+nav ul a {
+  text-decoration: none; color: var(--muted);
+  font-weight: 600; font-size: .85rem; letter-spacing: 1px;
+  text-transform: uppercase; transition: color .2s;
+}
+nav ul a:hover { color: var(--gold); }
+.nav-cta {
+  background: var(--gold); color: var(--navy) !important;
+  padding: .4rem 1.1rem; border-radius: 4px;
+}
+.nav-cta:hover { background: var(--orange); color: var(--white) !important; }
+
+/* ── HAMBURGER ── */
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px; z-index: 200;
+}
+.hamburger span {
+  display: block; width: 26px; height: 2.5px;
+  background: var(--gold); border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  padding: 8rem 2rem 3rem;
+  text-align: center;
+  background: var(--navy);
+  border-bottom: 1px solid rgba(245,200,66,0.1);
+}
+.page-header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  letter-spacing: 2px; line-height: 1;
+}
+.page-header h1 em { color: var(--gold); font-style: normal; }
+.page-header p {
+  color: var(--muted); font-size: 1.1rem;
+  max-width: 600px; margin: 1rem auto 0; line-height: 1.7;
+}
+
+/* ── APPLICATION FORM ── */
+.app-section {
+  padding: 4rem 2rem;
+  max-width: 750px;
+  margin: 0 auto;
+}
+.app-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem; letter-spacing: 2px;
+  margin-bottom: .5rem;
+}
+.app-section h2 em { color: var(--gold); font-style: normal; }
+.section-label {
+  font-size: .75rem; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--sky); font-weight: 700;
+  display: flex; align-items: center; gap: .6rem; margin-bottom: .8rem;
+}
+.section-label::before { content: ''; width: 28px; height: 2px; background: var(--sky); }
+
+.form-card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1.2rem; }
+.form-group label {
+  font-size: .75rem; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--muted); font-weight: 600;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--navy);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 6px; padding: .75rem 1rem;
+  color: var(--white); font-family: 'Barlow', sans-serif;
+  font-size: .95rem; transition: border-color .2s; outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--gold); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group select option { background: var(--card); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+
+.form-note {
+  color: var(--muted); font-size: .85rem; line-height: 1.6;
+  margin-bottom: 1.5rem; padding: 1rem;
+  background: rgba(56,189,248,.05);
+  border: 1px solid rgba(56,189,248,.15);
+  border-radius: 8px;
+}
+
+.btn-submit {
+  background: var(--gold); color: var(--navy);
+  padding: 1rem 2.5rem; border-radius: 6px;
+  font-weight: 700; font-size: 1rem; letter-spacing: .5px;
+  text-transform: uppercase; border: none; cursor: pointer;
+  transition: background .2s, transform .2s;
+  width: 100%;
+}
+.btn-submit:hover { background: var(--orange); color: var(--white); transform: translateY(-2px); }
+
+/* ── SUCCESS MESSAGE ── */
+.success-message {
+  display: none;
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.success-message h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem; letter-spacing: 2px; color: var(--gold);
+  margin-bottom: 1rem;
+}
+.success-message p {
+  color: var(--muted); font-size: 1.1rem; line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.btn-home {
+  display: inline-block;
+  background: var(--gold); color: var(--navy);
+  padding: .85rem 2rem; border-radius: 6px;
+  font-weight: 700; font-size: .95rem; letter-spacing: .5px;
+  text-decoration: none; text-transform: uppercase;
+  transition: background .2s, transform .2s;
+}
+.btn-home:hover { background: var(--orange); color: var(--white); transform: translateY(-2px); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: .85rem;
+}
+footer a { color: var(--sky); text-decoration: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .hamburger { display: flex; }
+  nav ul {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(6,9,24,0.97);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.2rem; display: none; z-index: 150;
+  }
+  nav ul.open { display: flex; }
+  nav ul a { font-size: 1.2rem; color: var(--white); }
+  .form-row, .form-row-3 { grid-template-columns: 1fr; }
+  .form-card { padding: 1.5rem; }
+  .app-section { padding: 3rem 1.2rem; }
+  .page-header { padding: 6rem 1.2rem 2rem; }
+}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">HFKS <span>Foundation</span></a>
+  <ul id="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#missions">Mission</a></li>
+    <li><a href="index.html#programs">Programs</a></li>
+    <li><a href="tnt-families.html">TNT Families</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button type="button" class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>Scholarship <em>Application</em></h1>
+  <p>The Holden Foundation for Kids Sports is committed to ensuring every child has the opportunity to participate in athletics. Complete the application below to be considered for our scholarship program.</p>
+</div>
+
+<!-- APPLICATION FORM -->
+<form id="scholarship-form">
+
+  <!-- PARENT / GUARDIAN INFO -->
+  <div class="app-section">
+    <div class="section-label">Section 1</div>
+    <h2>Parent / Guardian <em>Information</em></h2>
+    <div class="form-card">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" name="parent_first" required />
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" name="parent_last" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" name="parent_email" required />
+        </div>
+        <div class="form-group">
+          <label>Phone *</label>
+          <input type="tel" name="parent_phone" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Relationship to Athlete *</label>
+        <select name="relationship" required>
+          <option value="">Select...</option>
+          <option>Mother</option>
+          <option>Father</option>
+          <option>Legal Guardian</option>
+          <option>Grandparent</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Home Address *</label>
+        <input type="text" name="address" placeholder="Street address" required />
+      </div>
+      <div class="form-row-3">
+        <div class="form-group">
+          <label>City *</label>
+          <input type="text" name="city" required />
+        </div>
+        <div class="form-group">
+          <label>State *</label>
+          <input type="text" name="state" required />
+        </div>
+        <div class="form-group">
+          <label>Zip Code *</label>
+          <input type="text" name="zip" required />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATHLETE INFO -->
+  <div class="app-section">
+    <div class="section-label">Section 2</div>
+    <h2>Athlete <em>Information</em></h2>
+    <div class="form-card">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Athlete First Name *</label>
+          <input type="text" name="athlete_first" required />
+        </div>
+        <div class="form-group">
+          <label>Athlete Last Name *</label>
+          <input type="text" name="athlete_last" required />
+        </div>
+      </div>
+      <div class="form-row-3">
+        <div class="form-group">
+          <label>Date of Birth *</label>
+          <input type="date" name="dob" required />
+        </div>
+        <div class="form-group">
+          <label>Age *</label>
+          <input type="number" name="age" min="4" max="18" required />
+        </div>
+        <div class="form-group">
+          <label>Gender *</label>
+          <select name="gender" required>
+            <option value="">Select...</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Non-binary</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>School Name *</label>
+          <input type="text" name="school" required />
+        </div>
+        <div class="form-group">
+          <label>Grade Level *</label>
+          <select name="grade" required>
+            <option value="">Select...</option>
+            <option>Kindergarten</option>
+            <option>1st Grade</option>
+            <option>2nd Grade</option>
+            <option>3rd Grade</option>
+            <option>4th Grade</option>
+            <option>5th Grade</option>
+            <option>6th Grade</option>
+            <option>7th Grade</option>
+            <option>8th Grade</option>
+            <option>9th Grade</option>
+            <option>10th Grade</option>
+            <option>11th Grade</option>
+            <option>12th Grade</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Sport(s) of Interest *</label>
+        <input type="text" name="sports" placeholder="e.g. Track & Field, Gymnastics, Basketball" required />
+      </div>
+      <div class="form-group">
+        <label>Current Athletic Experience</label>
+        <textarea name="experience" placeholder="Describe any current or past sports involvement, teams, or training..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINANCIAL INFO -->
+  <div class="app-section">
+    <div class="section-label">Section 3</div>
+    <h2>Financial <em>Information</em></h2>
+    <div class="form-card">
+      <div class="form-note">
+        This information helps us determine scholarship eligibility. All information is kept strictly confidential.
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Household Size *</label>
+          <input type="number" name="household_size" min="1" required />
+        </div>
+        <div class="form-group">
+          <label>Annual Household Income Range *</label>
+          <select name="income" required>
+            <option value="">Select...</option>
+            <option>Under $25,000</option>
+            <option>$25,000 – $40,000</option>
+            <option>$40,000 – $60,000</option>
+            <option>$60,000 – $80,000</option>
+            <option>$80,000 – $100,000</option>
+            <option>Over $100,000</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Does your child currently receive free or reduced lunch? *</label>
+        <select name="free_lunch" required>
+          <option value="">Select...</option>
+          <option>Yes — Free Lunch</option>
+          <option>Yes — Reduced Lunch</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Are there other financial assistance programs your family currently receives?</label>
+        <textarea name="other_assistance" placeholder="e.g. SNAP, Medicaid, housing assistance, etc."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESSAY / STATEMENT -->
+  <div class="app-section">
+    <div class="section-label">Section 4</div>
+    <h2>Personal <em>Statement</em></h2>
+    <div class="form-card">
+      <div class="form-group">
+        <label>Why is this scholarship important to your family? *</label>
+        <textarea name="why_important" placeholder="Tell us how this scholarship would impact your child and your family..." style="min-height:140px;" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>What are your child's goals in sports and academics?</label>
+        <textarea name="goals" placeholder="Share your child's aspirations and what they hope to achieve..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Is there anything else you'd like us to know?</label>
+        <textarea name="additional" placeholder="Any additional information that may support this application..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- AGREEMENT & SUBMIT -->
+  <div class="app-section">
+    <div class="section-label">Section 5</div>
+    <h2>Agreement & <em>Submission</em></h2>
+    <div class="form-card">
+      <div class="form-group" style="flex-direction:row; align-items:flex-start; gap:.8rem;">
+        <input type="checkbox" id="agree" name="agree" required style="width:auto; margin-top:.3rem;" />
+        <label for="agree" style="text-transform:none; letter-spacing:0; font-size:.9rem; color:var(--muted); line-height:1.6; cursor:pointer;">
+          I certify that the information provided is accurate and complete to the best of my knowledge. I understand that providing false information may result in disqualification. I authorize the Holden Foundation for Kids Sports to verify any information provided in this application.
+        </label>
+      </div>
+      <button type="submit" class="btn-submit">Submit Application</button>
+    </div>
+  </div>
+
+</form>
+
+<!-- SUCCESS MESSAGE -->
+<div class="success-message" id="success-message">
+  <h2>Application Submitted!</h2>
+  <p>Thank you for applying to the Holden Foundation Scholarship Program. We have received your application and will review it carefully. You will be contacted via email regarding the status of your application.</p>
+  <a href="index.html" class="btn-home">Back to Home</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  &copy; 2026 Holden Foundation for Kids Sports. All rights reserved. | <a href="index.html">Back to Home</a>
+</footer>
+
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('open');
+  });
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('open');
+    });
+  });
+
+  // Form submission
+  const form = document.getElementById('scholarship-form');
+  const successMsg = document.getElementById('success-message');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const data = new FormData(form);
+    const body = {};
+    data.forEach((val, key) => { body[key] = val; });
+
+    // Send via EmailJS, Formspree, or similar service
+    // For now, show success and log data
+    console.log('Scholarship Application:', body);
+
+    form.style.display = 'none';
+    document.querySelector('.page-header').style.display = 'none';
+    successMsg.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
