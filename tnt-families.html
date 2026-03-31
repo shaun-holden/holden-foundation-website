@@ -270,6 +270,26 @@ nav ul a:hover { color: var(--gold); }
 }
 .link-btn:hover { background: var(--orange); color: var(--white); transform: translateY(-2px); }
 
+.form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
+.form-group label {
+  font-size: .75rem; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--muted); font-weight: 600;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--navy);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 6px; padding: .75rem 1rem;
+  color: var(--white); font-family: 'Barlow', sans-serif;
+  font-size: .95rem; transition: border-color .2s; outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--gold); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group select option { background: var(--card); }
+
 .meeting-placeholder {
   color: var(--muted);
   font-style: italic;
@@ -445,6 +465,50 @@ footer a { color: var(--sky); text-decoration: none; }
       <div class="meeting-placeholder">
         Meeting minutes will be posted here after each booster club meeting. Check back soon!
       </div>
+    </div>
+  </div>
+
+  <!-- BOARD / COMMITTEE INTEREST -->
+  <div class="dash-section">
+    <div class="section-label">Get Involved</div>
+    <h2>Interested in Being on the <em>Board or a Committee?</em></h2>
+    <div class="info-card">
+      <p>We're always looking for dedicated parents and community members to help lead our booster club. Whether you're interested in joining the board or serving on a committee, we'd love to hear from you!</p>
+      <form action="https://formspree.io/f/xpqorzdv" method="POST" style="margin-top:1.5rem;">
+        <input type="hidden" name="_subject" value="Board / Committee Interest — TNT Families" />
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+          <div class="form-group">
+            <label>First Name *</label>
+            <input type="text" name="first_name" required />
+          </div>
+          <div class="form-group">
+            <label>Last Name *</label>
+            <input type="text" name="last_name" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" name="phone" />
+        </div>
+        <div class="form-group">
+          <label>I'm interested in... *</label>
+          <select name="interest" required>
+            <option value="">Select...</option>
+            <option>Board Member</option>
+            <option>Committee Member</option>
+            <option>Either / Open to Both</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell us about yourself and why you'd like to serve</label>
+          <textarea name="message" placeholder="Share any relevant experience, skills, or why you'd like to get involved..." style="min-height:100px;"></textarea>
+        </div>
+        <button type="submit" class="link-btn" style="border:none; cursor:pointer; font-family:'Barlow',sans-serif; width:100%; text-align:center;">Submit Interest</button>
+      </form>
     </div>
   </div>
 
